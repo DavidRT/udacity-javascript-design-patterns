@@ -8,7 +8,7 @@ $(function() {
         {
           catId: 1,
           catName: 'Tom',
-          catImage: 'images/cat1.jpg',
+          catImage: 'images/cat.jpg',
           counter: 0
         },
         {
@@ -20,7 +20,7 @@ $(function() {
         {
           catId: 3,
           catName: 'Gato',
-          catImage: 'images/cat1.jpg',
+          catImage: 'images/cat.jpg',
           counter: 0
         },
         {
@@ -34,69 +34,77 @@ $(function() {
     getAllCats: function() {
       return this.cats;
     },
-    getCatById: function(id){
+    getCatById: function(id) {
       var gato;
-      this.cats.forEach(function(item){
-        if ( id == item.catId){
+      this.cats.forEach(function(item) {
+        if (id == item.catId) {
           gato = item;
         }
       });
       return gato;
-    }
-
+    },
+    incrementCounter: function(id) {
+      this.cats.forEach(function(item) {
+        if (id == item.catId) {
+          item.counter++;
+        }
+      });
+    },
   };
   var octopus = {
     init: function() {
       model.init();
       viewList.init();
+      viewCat.init();
     },
     getCats: function() {
       return model.getAllCats();
     },
     updateCounter: function(idCat) {
-      // model.
+      model.incrementCounter(idCat);
     },
-    getCatById: function(id){
-      
+    getCatById: function(id) {
       return model.getCatById(id);
     },
   };
   var viewList = {
     init: function() {
       this.catList = $('#cats');
-
-      this.catList.on('click','.cat',function(e){
+      this.catList.on('click', '.cat', function(e) {
         var x = $(this).data('id')
-        
         viewCat.render(x);
       });
       viewList.render();
-
     },
     render: function() {
       var htmlStr = '';
       octopus.getCats().forEach(function(item) {
-        htmlStr += '<li class="cat" data-id="'+item.catId+'" >' + item.catName + '</li>';
-
+        htmlStr += '<li class="cat list-group-item" data-id="' + item.catId + '" >' + item.catName +
+          '</li>';
       });
       this.catList.html(htmlStr);
     },
   };
-
   var viewCat = {
-    init: function(){
-      this.nameCat = $('#cat-nane');
+    init: function() {
+      this.nameCat = $('#cat-name');
       this.counterCat = $('#cat-counter');
       this.imageCat = $('#cat-image');
     },
-    render:function(idCat){
-      console.log(idCat);
-      console.log(octopus.getCatById(idCat))
+    render: function(idCat) {
       var cat = octopus.getCatById(idCat);
-      this.nameCat.html(cat.catName)
-      this.counterCat.html(cat)
+      viewCat.nameCat.html(cat.catName)
+      viewCat.renderCounter(cat);
+      viewCat.imageCat.attr('src', cat.catImage)
+      viewCat.imageCat.off('click')
+      viewCat.imageCat.on('click', function() {
+        octopus.updateCounter(cat.catId);
+        viewCat.renderCounter(cat)
+      })
     },
-
+    renderCounter: function(cat) {
+      viewCat.counterCat.html("Clicks counter: " + cat.counter);
+    }
   };
   octopus.init();
 });
