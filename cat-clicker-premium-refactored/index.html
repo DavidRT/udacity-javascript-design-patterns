@@ -9,6 +9,9 @@
     max-width: 600px;
     max-height: 400px;
   }
+  .admin-area{
+    display: none;
+  }
   </style>
 </head>
 <body>
@@ -17,6 +20,29 @@
       <div class="col-md-3">
         <br>
         <ul class="cats list-group" id="cats"></ul>
+        <button id="adminButton" type="button" class="btn btn-primary">Admin</button>
+        <div id="admin-area" class="row admin-area">
+        <form>
+          <br>
+          <div class="input-group">
+          <span class="input-group-addon" id="basic-addon1">A-Z</span>
+          <input id="frm-name" type="text" class="form-control" placeholder="cat name" aria-describedby="basic-addon1">
+          </div>
+          <br>
+          <div class="input-group">
+          <span class="input-group-addon" id="basic-addon1">Image</span>
+          <input id="frm-image" type="text" class="form-control" placeholder="cat image" aria-describedby="basic-addon1">
+          </div>
+          <br>
+          <div class="input-group">
+          <span class="input-group-addon" id="basic-addon1">Counter</span>
+          <input id="frm-counter" type="text" class="form-control" placeholder="cat counter click" aria-describedby="basic-addon1">
+          </div>
+          <br>
+           <button id="cancel-admin" type="button" class="btn btn-danger">Cancel</button>
+            <button id="admin-save" type="button" class="btn btn-success">Save</button>
+        </form>
+        </div>
       </div>
       <div class="col-md-9">
         <div class="cat-detail" id="cat-detail">
