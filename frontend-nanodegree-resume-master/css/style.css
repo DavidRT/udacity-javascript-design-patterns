@@ -212,3 +212,6 @@ span {
     display: block;
   }
 }
+.projects-image{
+  max-width: 300px;
+}
