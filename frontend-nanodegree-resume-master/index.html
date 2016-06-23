@@ -51,8 +51,15 @@ need to load. You'll see a lot of <link>s to CSS files for styles and
     display by looking at the id or at what's written between the <h2> tags.
     -->
     <div id="header" class="center-content clear-fix">
+      <h1 id="name" class="header-name"></h1>
+      <span class="header-role"></span><hr>
       <ul id="topContacts" class="flex-box"></ul>
+      <img src="%data%" class="biopic header-pic">
+      <span class="welcome-message header-message"></span>
+      <h3 id="skills-h3">Skills at a Glance:</h3>
+      <ul id="skills" class="flex-box header-skills"></ul>
     </div>
+
     <div style="clear: both;"></div>
     <div id="workExperience" class="gray">
       <h2>Work Experience</h2>
@@ -104,24 +111,7 @@ need to load. You'll see a lot of <link>s to CSS files for styles and
     */
 
 
-    if(document.getElementsByClassName('flex-item').length === 0) {
-      document.getElementById('topContacts').style.display = 'none';
-    }
-    if(document.getElementsByTagName('h1').length === 0) {
-      document.getElementById('header').style.display = 'none';
-    }
-    if(document.getElementsByClassName('work-entry').length === 0) {
-      document.getElementById('workExperience').style.display = 'none';
-    }
-    if(document.getElementsByClassName('project-entry').length === 0) {
-      document.getElementById('projects').style.display = 'none';
-    }
-    if(document.getElementsByClassName('education-entry').length === 0) {
-      document.getElementById('education').style.display = 'none';
-    }
-    if(document.getElementsByClassName('flex-item').length === 0) {
-      document.getElementById('lets-connect').style.display = 'none';
-    }
+  
     
   </script>
 </body>

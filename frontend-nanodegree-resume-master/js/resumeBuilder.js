@@ -8,15 +8,31 @@ $(function() {
     bio: {
       name: "Dav",
       role: "Programmer(?)",
-      contacts: {
-        mobile: "XX-XXXXXXXX",
-        email: "drodtach@gmail.com",
-        github: "repo goes here",
-        twitter: "@DavidRT",
-        location: "Montecassino 1349, Maipú, Santiago, Chile"
-      },
-      welcomeMessage: "Bienvenido",
-      skills: ["A", "B", "C"],
+      contacts: [{
+            name: "mobile",
+            value: "12-345678910"
+          },
+          {
+            name: "email",
+            value: "email@example.com"
+          },
+          {
+            name: "twitter",
+            value: "@Twitter"
+          },
+          {
+            name: "github",
+            value: "github"
+          },
+          {
+            name: "location",
+            value: "Santiago, Chile"
+          }
+        ]
+        //location: "Santiago, Chile"
+        ,
+      welcomeMessage: "Lorem ipsum...",
+      skills: ["Skill A", "Skill B", "Skill C"],
       biopic: "http://67.media.tumblr.com/4c2304e2c32b1a873ad77b3bfbb5f75c/tumblr_mgmz9bjakD1rnixfao1_r1_500.gif",
     },
     education: {
@@ -110,10 +126,9 @@ $(function() {
   var octopus = {
     init: function() {
       bioView.init();
+      bioView.render();
       workView.init();
       workView.render();
-     
-      bioView.render();
       projectView.init();
       projectView.render();
       educationView.init();
@@ -145,6 +160,30 @@ $(function() {
       return model.getSchoolLocation();
     }
   };
+  var bioView = {
+    init: function() {
+      this.$topContacts = $('#topContacts');
+      this.$headerName = $('.header-name');
+      this.$headerRole = $('.header-role');
+      this.$headerPic = $('.header-pic');
+      this.$headerMessage = $('.header-message');
+      this.$headerSkills = $('.header-skills');
+    },
+    render: function() {
+      var bio = octopus.getBio();
+      this.$headerName.text(bio.name);
+      this.$headerRole.text(bio.role);
+      this.$headerPic.attr('src', bio.biopic);
+      this.$headerMessage.text(bio.welcomeMessage);
+      bio.contacts.forEach(function(item) {
+        this.$topContacts.append('<li class="flex-item"><span class="orange-text">' + item.name +
+          '</span><span class="white-text">' + item.value + '</span></li>')
+      }, this);
+      bio.skills.forEach(function(item) {
+        this.$headerSkills.append('<li class="flex-item"><span class="white-text">' + item + '</span></li>');
+      }, this);
+    },
+  };
   var workView = {
     init: function() {
       this.container = $('#workExperience');
@@ -167,12 +206,9 @@ $(function() {
     init: function() {
       this.container = $('#mapDiv');
       mapView.render();
-     
       window.addEventListener('load', initializeMap(octopus.getBioContactLocation(), octopus.getSchoolLocation(),
         octopus.getJobLocation()));
-     
       window.addEventListener('resize', function(e) {
-       
         map.fitBounds(mapBounds);
       });
     },
@@ -211,41 +247,6 @@ $(function() {
         $onlineContainer.append(entry);
       });
       return $onlineContainer;
-    },
-  }
-  var bioView = {
-    init: function() {
-      this.header = $('#header');
-      this.topContacts = $('#topContacts');
-    },
-    render: function() {
-      var bio = octopus.getBio();
-      console.log(bio);
-      HTMLheaderName = HTMLheaderName.replace("%data%", bio.name);
-      HTMLheaderRole = HTMLheaderRole.replace("%data%", bio.role);
-      console.log(bio.contacts.mobile)
-      HTMLmobile = HTMLmobile.replace("%data%", bio.contacts.mobile);
-      HTMLemail = HTMLemail.replace("%data%", bio.contacts.email);
-      HTMLtwitter = HTMLtwitter.replace("%data%", bio.contacts.twitter);
-      HTMLgithub = HTMLgithub.replace("%data%", bio.contacts.github);
-      HTMLlocation = HTMLlocation.replace("%data%", bio.contacts.location);
-      HTMLbioPic = HTMLbioPic.replace("%data%", bio.biopic)
-      bioView.header.prepend(HTMLheaderRole)
-      bioView.header.prepend(HTMLheaderName)
-      bioView.topContacts.append(HTMLmobile)
-      bioView.topContacts.append(HTMLemail)
-      bioView.topContacts.append(HTMLtwitter)
-      bioView.topContacts.append(HTMLgithub)
-      bioView.topContacts.append(HTMLlocation)
-      bioView.header.append(HTMLbioPic);
-      bioView.header.append(HTMLwelcomeMsg)
-      bioView.header.append(HTMLskillsStart);
-      var skillList = $('#skills');
-      bio.skills.forEach(function(item) {
-        skillList.append(HTMLskills);
-      });
-      bioView.header.show();
-      bioView.topContacts.show();
     },
   }
   var projectView = {
