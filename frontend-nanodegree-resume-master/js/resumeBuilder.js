@@ -1,81 +1,69 @@
-/*
-This is empty on purpose! Your code to build the resume will go here.
- */
 $(function() {
-  // audiencia = attendance
-  /* MODEL */
   var model = {
     bio: {
       name: "Dav",
       role: "Programmer(?)",
       contacts: [{
-            name: "mobile",
-            value: "12-345678910"
+          name: "mobile",
+          value: "12-345678910"
           },
-          {
-            name: "email",
-            value: "email@example.com"
+        {
+          name: "email",
+          value: "email@example.com"
           },
-          {
-            name: "twitter",
-            value: "@Twitter"
+        {
+          name: "twitter",
+          value: "@Twitter"
           },
-          {
-            name: "github",
-            value: "github"
+        {
+          name: "github",
+          value: "github"
           },
-          {
-            name: "location",
-            value: "Santiago, Chile"
+        {
+          name: "location",
+          value: "Maipú, Santiago, Chile"
           }
-        ]
-        //location: "Santiago, Chile"
-        ,
+        ],
       welcomeMessage: "Lorem ipsum...",
       skills: ["Skill A", "Skill B", "Skill C"],
       biopic: "http://67.media.tumblr.com/4c2304e2c32b1a873ad77b3bfbb5f75c/tumblr_mgmz9bjakD1rnixfao1_r1_500.gif",
     },
     education: {
       schools: [{
-        name: "A",
-        location: "Av. Portales 345, Maipú, Santiago",
-        degree: "a",
-        majors: ["a1", "a2", "a3"],
-        dates: "10-01-2000 - 10-11-2001",
-        url: "string"
+        name: "University",
+        location: "Metro Camino Agricola, Santiago, Chile",
+        degree: "BA",
+        majors: ["CS"],
+        dates: "2014 - Present",
+        url: "https://www.google.com"
   }, {
-        name: "B",
-        location: "Metro Camino Agricola, Santiago",
-        degree: "b",
-        majors: ["b1", "b2", "b3"],
-        dates: "10-01-2000 - 10-11-2001",
-        url: "string"
+        name: "University",
+        location: "Metro Moneda, Santiago, Chile",
+        degree: "BA",
+        majors: ["CS"],
+        dates: "2010 - 2012",
+        url: "https://www.google.com"
   }],
       onlineCourses: [{
-        title: "Title 1",
-        school: "School 1",
+        title: "Javascript Design Patterns",
+        school: "Udacity",
         date: "2016",
-        url: "some url"
-  }, {
-        title: "Title 2",
-        school: "School 2",
-        date: "2015",
-        url: "some url"
+        url: "https://www.udacity.com/course/javascript-design-patterns--ud989"
   }]
     },
     work: {
       jobs: [{
         employer: "Employer A",
-        title: "Title a",
-        location: "Huelen 164, Providencia, Santiago",
-        dates: "In progress",
-        description: "Lorem ipsum"
+        title: "Some description about position",
+        location: "Providencia, Santiago, Chile",
+        dates: "2014 - Present",
+        description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc sem augue, sagittis id dui eget, tincidunt maximus tortor. Aliquam porttitor mi posuere."
   }, {
         employer: "Employer B",
-        title: "Title b",
-        location: "Huelen 164, Providencia, Santiago",
-        dates: "In progress",
-        description: "Lorem ipsum",
+        title: "Another description about position",
+        location: "Las Condes, Santiago, Chile",
+        dates: "2014",
+        description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque sed aliquam quam, vitae gravida quam. Quisque tincidunt lorem nibh, non placerat sed.",
   }]
     },
     projects: [{
@@ -106,7 +94,10 @@ $(function() {
       return this.education.onlineCourses;
     },
     getBioContactLocation: function() {
-      return this.bio.contacts.location;
+      var location = this.bio.contacts.filter(function(e) {
+        return e.name == 'location'
+      });
+      return [location[0].value];
     },
     getJobLocation: function() {
       var array = [];
@@ -189,7 +180,6 @@ $(function() {
       this.container = $('#workExperience');
     },
     render: function() {
-      workView.container.append(HTMLworkStart);
       octopus.getWorks().jobs.forEach(function(item) {
         var $workEntry = $('<div class="work-entry"></div>');
         var $workEmployer = $('<a href="#">' + item.employer + ' - ' + item.title + '</a>');
@@ -197,58 +187,10 @@ $(function() {
         var $workLocation = $('<div class="location-text">' + item.location + '</div>');
         var $workDescription = $('<p><br>' + item.description + '</p>');
         $workEntry.append($workEmployer).append($workDate).append($workLocation).append($workDescription);
-        workView.container.append($workEntry);
-      });
-      workView.container.show();
+        this.container.append($workEntry);
+      }, this);
     },
-  }
-  var mapView = {
-    init: function() {
-      this.container = $('#mapDiv');
-      mapView.render();
-      window.addEventListener('load', initializeMap(octopus.getBioContactLocation(), octopus.getSchoolLocation(),
-        octopus.getJobLocation()));
-      window.addEventListener('resize', function(e) {
-        map.fitBounds(mapBounds);
-      });
-    },
-    render: function() {
-      mapView.container.append(googleMap);
-    },
-  }
-  var educationView = {
-    init: function() {
-      this.container = $('#education');
-    },
-    render: function() {
-      octopus.getSchools().forEach(function(item) {
-        console.log(item)
-        var $educationEntry = $('<div class="work-entry"></div>');
-        var $educationName = $('<a href="#">' + item.name + ' -- ' + item.degree + '</a>')
-        var $educationDate = $('<div class="date-text">' + item.dates + '</div>')
-        var $educationLocation = $('<div class="location-text">%data%</div>')
-        var $educationMajor = $('<em><br>Major: %data%</em>')
-        $educationEntry.append($educationName).append($educationDate).append($educationLocation).append(
-          $educationMajor);
-        educationView.container.append($educationEntry);
-      });
-      educationView.container.append(educationView.renderOnline());
-      educationView.container.show();
-    },
-    renderOnline: function() {
-      var HTMLonlineClasses = '<h3>Online Classes</h3>';
-      var HTMLonlineTitle = '<a href="#">%data%';
-      var HTMLonlineSchool = ' - %data%</a>';
-      var HTMLonlineDates = '<div class="date-text">%data%</div>';
-      var $onlineContainer = $('<h3>Online Classes</h3>')
-      octopus.getOnlineCourses().forEach(function(item) {
-        var entry = $('<a href="#">' + item.title + ' - ' + item.school + '</a><div class="date-text">' +
-          item.date + '</div><br><a href="#">%data%</a>');
-        $onlineContainer.append(entry);
-      });
-      return $onlineContainer;
-    },
-  }
+  };
   var projectView = {
     init: function() {
       this.container = $('#projects');
@@ -265,10 +207,57 @@ $(function() {
         });
         $projectEntry.append($projectTitle).append($projectDates).append($projectDescription).append(
           $projectImages);
-        projectView.container.append($projectEntry);
-      });
-      projectView.container.show();
+        this.container.append($projectEntry);
+      }, this);
     },
+  };
+  var educationView = {
+    init: function() {
+      this.container = $('#education');
+    },
+    render: function() {
+      octopus.getSchools().forEach(function(item) {
+        var $educationEntry = $('<div class="education-entry"></div>');
+        var $educationName = $('<a href="#">' + item.name + ' - ' + item.degree + '</a>')
+        var $educationDate = $('<div class="date-text">' + item.dates + '</div>')
+        var $educationLocation = $('<div class="location-text">' + item.location + '</div>')
+        var majors = "";
+        item.majors.forEach(function(item) {
+          majors += item + " ";
+        });
+        var $educationMajor = $('<em><br>Major: ' + majors + '</em>')
+        $educationEntry.append($educationName).append($educationDate).append($educationLocation).append(
+          $educationMajor);
+        this.container.append($educationEntry);
+      }, this);
+      this.renderOnline();
+    },
+    renderOnline: function() {
+      var $onlineContainer = $('<div class="education-entry"></div>');
+      octopus.getOnlineCourses().forEach(function(item, index) {
+        if (index == 0) $onlineContainer.append('<h3 class="title-online-education">Online Classes</h3>');
+        var entry = $('<a href="#">' + item.title + ' - ' + item.school + '</a><div class="date-text">' +
+          item.date + '</div><br><a href="' + item.url + '">' + item.url + '</a>');
+        $onlineContainer.append(entry);
+      });
+      this.container.append($onlineContainer);
+    },
+  };
+  var mapView = {
+    init: function() {
+      console.log(octopus.getBioContactLocation());
+      console.log('2')
+      console.log(octopus.getSchoolLocation());
+      console.log('3')
+      console.log(octopus.getJobLocation());
+      console.log('4')
+      window.addEventListener('load', initializeMap(octopus.getBioContactLocation(), octopus.getSchoolLocation(),
+        octopus.getJobLocation()));
+      window.addEventListener('resize', function(e) {
+        map.fitBounds(mapBounds);
+      });
+    },
+    render: function() {},
   }
   octopus.init();
 });
