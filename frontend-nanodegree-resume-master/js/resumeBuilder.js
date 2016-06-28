@@ -31,14 +31,14 @@ $(function() {
     education: {
       schools: [{
         name: "University",
-        location: "Metro Camino Agricola, Santiago, Chile",
+        location: "Vicuña Mackenna 3939, San Joaquín",
         degree: "BA",
         majors: ["CS"],
         dates: "2014 - Present",
         url: "https://www.google.com"
   }, {
         name: "University",
-        location: "Metro Moneda, Santiago, Chile",
+        location: "Metro Moneda, Santiago",
         degree: "BA",
         majors: ["CS"],
         dates: "2010 - 2012",
@@ -55,13 +55,13 @@ $(function() {
       jobs: [{
         employer: "Employer A",
         title: "Some description about position",
-        location: "Providencia, Santiago, Chile",
+        location: "Metro Salvador, Providencia",
         dates: "2014 - Present",
         description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc sem augue, sagittis id dui eget, tincidunt maximus tortor. Aliquam porttitor mi posuere."
   }, {
         employer: "Employer B",
         title: "Another description about position",
-        location: "Las Condes, Santiago, Chile",
+        location: "Metro Escuela Militar, Las Condes",
         dates: "2014",
         description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque sed aliquam quam, vitae gravida quam. Quisque tincidunt lorem nibh, non placerat sed.",
   }]
@@ -245,19 +245,12 @@ $(function() {
   };
   var mapView = {
     init: function() {
-      console.log(octopus.getBioContactLocation());
-      console.log('2')
-      console.log(octopus.getSchoolLocation());
-      console.log('3')
-      console.log(octopus.getJobLocation());
-      console.log('4')
       window.addEventListener('load', initializeMap(octopus.getBioContactLocation(), octopus.getSchoolLocation(),
         octopus.getJobLocation()));
       window.addEventListener('resize', function(e) {
         map.fitBounds(mapBounds);
       });
-    },
-    render: function() {},
+    }
   }
   octopus.init();
 });
