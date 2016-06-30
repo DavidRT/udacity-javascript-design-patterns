@@ -59,10 +59,8 @@ var ViewModel = function() {
     self.currentCat().clickCount(self.currentCat().clickCount() + 1);
   };
 
-  this.setCurrentCat = function(index,data,event){
-    // here its possible pass the cat clicked 
-    // and apply to: self.currentCat(catClicked)
-    self.currentCat = ko.observable(this.catList()[index]);
+  this.setCurrentCat = function(catClicked){
+    self.currentCat(catClicked)
   };
 
 }
