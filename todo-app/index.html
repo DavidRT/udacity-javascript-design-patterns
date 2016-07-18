@@ -3,10 +3,24 @@
 	<head>
 		<meta charset="utf-8">
 		<title>Backbone.js • TodoMVC</title>
+
+		<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+
+<!-- Optional theme -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
+
+<!-- Latest compiled and minified JavaScript -->
+
+
 		<link rel="stylesheet" href="bower_components/todomvc-common/base.css">
 	</head>
 	<body>
+	
+
+
 		<section id="todoapp">
+		
 			<header id="header">
 				<h1>todos</h1>
 				<input id="new-todo" placeholder="What needs to be done?" autofocus>
@@ -17,6 +31,33 @@
 				<ul id="todo-list"></ul>
 			</section>
 			<footer id="footer"></footer>
+
+<div aria-labelledby="mySmallModalLabel" class="modal fade" id="priorityModal" role="dialog" tabindex="-1">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button aria-label="Close" class="close" data-dismiss="modal" type="button"><span aria-hidden=
+        "true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Choose your priority</h4>
+      </div>
+      <div class="modal-body">
+        <div class="row2">
+          <p><a class="btn btn-success popover-test btn-priority" data-content=
+          "And here's some amazing content. It's very engaging. right?" data-original-title="A Title" data-priority="1"
+          href="#" role="button" title="">Low</a> <a class="btn btn-primary popover-test btn-priority" data-content=
+          "And here's some amazing content. It's very engaging. right?" data-original-title="A Title" data-priority="2"
+          href="#" role="button" title="">Medium</a> <a class="btn btn-warning popover-test btn-priority" data-content=
+          "And here's some amazing content. It's very engaging. right?" data-original-title="A Title" data-priority="3"
+          href="#" role="button" title="">High</a> <a class="btn btn-danger popover-test btn-priority" data-content=
+          "And here's some amazing content. It's very engaging. right?" data-original-title="A Title" data-priority="4"
+          href="#" role="button" title="">Critical</a></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
 		</section>
 		<footer id="info">
 			<p>Double-click to edit a todo</p>
@@ -50,9 +91,11 @@
 			<button id="clear-completed">Clear completed (<%= completed %>)</button>
 			<% } %>
 		</script>
+
 		<script src="bower_components/todomvc-common/base.js"></script>
 		<script src="bower_components/jquery/jquery.js"></script>
 		<script src="bower_components/underscore/underscore.js"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
 		<script src="bower_components/backbone/backbone.js"></script>
 		<script src="bower_components/backbone.localStorage/backbone.localStorage.js"></script>
 		<script src="js/models/todo.js"></script>

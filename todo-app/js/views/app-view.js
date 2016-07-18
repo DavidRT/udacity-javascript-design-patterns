@@ -21,7 +21,8 @@ var app = app || {};
 		events: {
 			'keypress #new-todo': 'createOnEnter',
 			'click #clear-completed': 'clearCompleted',
-			'click #toggle-all': 'toggleAllComplete'
+			'click #toggle-all': 'toggleAllComplete',
+			'click .btn-priority' : 'create',
 		},
 
 		// At initialization we bind to the relevant events on the `Todos`
@@ -33,6 +34,8 @@ var app = app || {};
 			this.$footer = this.$('#footer');
 			this.$main = this.$('#main');
 			this.$list = $('#todo-list');
+			this.$priorityModal = $('#priorityModal');
+			this.priorityLevel = 1; //default priority
 
 			this.listenTo(app.todos, 'add', this.addOne);
 			this.listenTo(app.todos, 'reset', this.addAll);
@@ -99,19 +102,26 @@ var app = app || {};
 			return {
 				title: this.$input.val().trim(),
 				order: app.todos.nextOrder(),
-				completed: false
+				completed: false,
+				priorityLevel: this.priorityLevel,
 			};
+		},
+
+		create: function(e){
+			var priority = e.currentTarget.dataset.priority;
+			this.priorityLevel = parseInt(priority);
+			app.todos.create(this.newAttributes());
+			this.$input.val('');
+			this.$priorityModal.modal('hide');
 		},
 
 		// If you hit return in the main input field, create new **Todo** model,
 		// persisting it to *localStorage*.
 		createOnEnter: function (e) {
 			if (e.which === ENTER_KEY && this.$input.val().trim()) {
-				app.todos.create(this.newAttributes());
-				this.$input.val('');
+				this.$priorityModal.modal('show');
 			}
 		},
-
 		// Clear all completed todo items, destroying their models.
 		clearCompleted: function () {
 			_.invoke(app.todos.completed(), 'destroy');
